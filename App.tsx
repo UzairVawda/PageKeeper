@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import './src/styles/global.css';
+import React from 'react';
+import { Alert } from 'react-native';
+import { SplashScreen } from '@/screens';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const handleLogin = () => {
+    Alert.alert('Login', 'Navigate to Login screen');
+  };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  const handleSignUp = () => {
+    Alert.alert('Sign Up', 'Navigate to Sign Up screen');
+  };
+
+  return <SplashScreen onLogin={handleLogin} onSignUp={handleSignUp} />;
+}
