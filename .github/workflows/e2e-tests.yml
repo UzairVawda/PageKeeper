@@ -44,9 +44,13 @@ jobs:
           # Wait for simulator to be ready
           sleep 10
 
+      - name: Install CocoaPods
+        working-directory: pk_app/ios
+        run: pod install
+
       - name: Build iOS app
         working-directory: pk_app
-        run: npx expo run:ios --device "iPhone 15"
+        run: npx expo run:ios --device "iPhone 15" --no-install
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
