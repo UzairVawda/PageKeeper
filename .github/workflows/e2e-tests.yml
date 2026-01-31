@@ -46,7 +46,7 @@ jobs:
 
       - name: Build iOS app
         working-directory: pk_app
-        run: npx expo run:ios --no-install --simulator "iPhone 15"
+        run: npx expo run:ios --device "iPhone 15"
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
