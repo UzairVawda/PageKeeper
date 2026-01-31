@@ -1,0 +1,70 @@
+# TC-LI-024 to TC-LI-029: Login Backend Integration Tests
+# Tests actual login with Firebase - success and error cases
+# PREREQUISITE: A test user must exist in Firebase for success tests
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to Login
+- launchApp:
+    clearState: true
+- tapOn: "Login"
+
+# TC-LI-026: Login - User Not Found
+- tapOn:
+    id: "identifier-input"
+- inputText: "nonexistent_user_12345@test.com"
+- tapOn:
+    id: "password-input"
+- inputText: "AnyPassword1!"
+- hideKeyboard
+- tapOn: "Log In"
+
+# Wait for error response
+- extendedWaitUntil:
+    visible: "Login Failed"
+    timeout: 10000
+- assertVisible: "Invalid email or password"
+- tapOn: "OK"
+
+# TC-LI-027: Login - Invalid Email Format
+- tapOn:
+    id: "identifier-input"
+- clearText
+- inputText: "notanemailformat"
+- tapOn:
+    id: "password-input"
+- clearText
+- inputText: "SomePass123!"
+- hideKeyboard
+- tapOn: "Log In"
+
+# Wait for error
+- extendedWaitUntil:
+    visible: "Login Failed"
+    timeout: 10000
+# Should show error about email format or username not supported
+- tapOn: "OK"
+
+# TC-LI-029: Login - Username Input (Not Yet Implemented)
+- tapOn:
+    id: "identifier-input"
+- clearText
+- inputText: "myusername"
+- tapOn:
+    id: "password-input"
+- clearText
+- inputText: "SomePass123!"
+- hideKeyboard
+- tapOn: "Log In"
+
+# Should show username not supported message
+- extendedWaitUntil:
+    visible: "Username Login"
+    timeout: 10000
+- assertVisible: "Please use your email address to log in"
+- tapOn: "OK"
+
+# NOTE: TC-LI-024 (Success Flow) and TC-LI-025 (Wrong Password)
+# require a pre-existing test user in Firebase
+# These should be run with known test credentials

@@ -1,0 +1,32 @@
+# TC-SU-040 to TC-SU-043: Google Sign Up Tests
+# NOTE: Maestro cannot interact with native Google Sign-In sheet
+# These tests verify the button behavior up to the point of Google sheet appearing
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to SignUp
+- launchApp:
+    clearState: true
+- tapOn: "Sign Up"
+
+# Verify Google button is visible
+- assertVisible: "Continue with Google"
+
+# TC-SU-043: Google Sign Up - Loading State
+- tapOn: "Continue with Google"
+
+# Button should show loading state
+- assertVisible:
+    id: "google-loading"
+    optional: true
+
+# NOTE: At this point, the native Google Sign-In sheet will appear
+# Maestro cannot interact with this sheet automatically
+# Manual testing required for:
+# - TC-SU-040: Completing Google sign-in with new account
+# - TC-SU-041: Completing Google sign-in with existing account
+# - TC-SU-042: Cancelling the Google sign-in sheet
+
+# For CI, we'll just verify the button triggers the flow
+# The test will timeout waiting for Google sheet, which is expected

@@ -1,0 +1,54 @@
+# TC-SU-035: Sign Up - Full Success Flow (Backend Integration)
+# Complete signup flow with unique email
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to SignUp
+- launchApp:
+    clearState: true
+- tapOn: "Sign Up"
+
+# Verify we're on SignUp screen
+- assertVisible: "Create Account"
+- assertVisible: "Start your reading journey today"
+
+# Enter unique email (using timestamp to ensure uniqueness)
+- tapOn:
+    id: "email-input"
+- inputText: "testuser_${timestamp}@pagekeeper.test"
+- hideKeyboard
+
+# Enter valid password
+- tapOn:
+    id: "password-input"
+- inputText: "Test123!"
+- assertVisible: "Strong"
+- hideKeyboard
+
+# Enter matching confirm password
+- tapOn:
+    id: "confirm-password-input"
+- inputText: "Test123!"
+- hideKeyboard
+
+# Verify button is enabled
+- assertVisible:
+    id: "signup-button-enabled"
+
+# Tap Sign Up
+- tapOn: "Sign Up"
+
+# TC-SU-034: Loading State - button should show spinner
+- assertVisible:
+    id: "signup-loading"
+    optional: true
+
+# Wait for success (may take a few seconds for Firebase)
+- extendedWaitUntil:
+    visible: "Success"
+    timeout: 10000
+
+# Verify success alert
+- assertVisible: "Account created successfully!"
+- tapOn: "OK"

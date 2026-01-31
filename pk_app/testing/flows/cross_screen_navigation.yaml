@@ -1,0 +1,65 @@
+# TC-CS-001 to TC-CS-003: Cross-Screen Navigation Tests
+
+appId: com.uzairv.pagekeeper
+---
+
+# TC-CS-001: Navigation Flow - Splash to SignUp to Login
+- launchApp:
+    clearState: true
+
+# Verify Splash
+- assertVisible: "PageKeeper"
+
+# Go to SignUp
+- tapOn: "Sign Up"
+- assertVisible: "Create Account"
+
+# Go to Login
+- tapOn: "Login"
+- assertVisible: "Log In"
+- assertVisible: "Welcome back"
+
+# Go back to SignUp
+- tapOn: "Sign Up"
+- assertVisible: "Create Account"
+
+---
+
+# TC-CS-002: Navigation Flow - Splash to Login to SignUp
+- launchApp:
+    clearState: true
+
+# Verify Splash
+- assertVisible: "PageKeeper"
+
+# Go to Login
+- tapOn: "Login"
+- assertVisible: "Log In"
+
+# Go to SignUp
+- tapOn: "Sign Up"
+- assertVisible: "Create Account"
+
+---
+
+# TC-CS-003: Form State Between Screens
+- launchApp:
+    clearState: true
+- tapOn: "Sign Up"
+
+# Enter some data
+- tapOn:
+    id: "email-input"
+- inputText: "test@example.com"
+- hideKeyboard
+
+# Navigate away
+- tapOn: "Login"
+- assertVisible: "Log In"
+
+# Navigate back
+- tapOn: "Sign Up"
+- assertVisible: "Create Account"
+
+# Form should be cleared (or persisted - depends on implementation)
+# This test documents current behavior

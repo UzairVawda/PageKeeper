@@ -1,0 +1,42 @@
+# TC-LI-020 to TC-LI-023: Login Button State Tests
+# Tests button enabled/disabled states based on form input
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to Login
+- launchApp:
+    clearState: true
+- tapOn: "Login"
+
+# TC-LI-020: Login Button - Disabled State (Empty Fields)
+- assertVisible:
+    id: "login-button-disabled"
+
+# TC-LI-021: Login Button - Disabled (Only Email)
+- tapOn:
+    id: "identifier-input"
+- inputText: "test@example.com"
+- hideKeyboard
+- assertVisible:
+    id: "login-button-disabled"
+
+# TC-LI-022: Login Button - Disabled (Only Password)
+- tapOn:
+    id: "identifier-input"
+- clearText
+- hideKeyboard
+- tapOn:
+    id: "password-input"
+- inputText: "somepassword"
+- hideKeyboard
+- assertVisible:
+    id: "login-button-disabled"
+
+# TC-LI-023: Login Button - Enabled (Both Fields Filled)
+- tapOn:
+    id: "identifier-input"
+- inputText: "test@example.com"
+- hideKeyboard
+- assertVisible:
+    id: "login-button-enabled"

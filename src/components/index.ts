@@ -1,1 +1,0 @@
-export { BookAnimation } from './BookAnimation';

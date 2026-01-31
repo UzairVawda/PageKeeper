@@ -1,0 +1,16 @@
+# Maestro Configuration for PageKeeper
+# Documentation: https://maestro.mobile.dev
+
+appId: com.uzairv.pagekeeper
+
+# Default settings
+onFlowStart:
+  - launchApp:
+      clearState: true
+
+# Environment variables for test data
+env:
+  TEST_EMAIL: "testuser@pagekeeper.test"
+  TEST_PASSWORD: "Test123!"
+  INVALID_EMAIL: "notanemail"
+  WEAK_PASSWORD: "weak"

@@ -1,0 +1,30 @@
+# TC-LI-015, TC-LI-016, TC-LI-050: Forgot Password and Navigation Tests
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to Login
+- launchApp:
+    clearState: true
+- tapOn: "Login"
+
+# TC-LI-015: Forgot Password Link Position
+# Verify link is visible (position verified by UI inspection)
+- assertVisible: "Forgot Password?"
+
+# TC-LI-016: Forgot Password - Tap Action
+- tapOn: "Forgot Password?"
+
+# Should show alert (placeholder for now)
+- extendedWaitUntil:
+    visible: "Reset Password"
+    timeout: 5000
+- tapOn: "OK"
+
+# TC-LI-050: Navigate to Sign Up
+- assertVisible: "Don't have an account?"
+- tapOn: "Sign Up"
+
+# Verify SignUp screen
+- assertVisible: "Create Account"
+- assertVisible: "Start your reading journey today"

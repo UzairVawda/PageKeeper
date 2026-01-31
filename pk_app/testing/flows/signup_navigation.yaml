@@ -1,0 +1,36 @@
+# TC-SU-050 and TC-CS-001: SignUp Navigation Tests
+# Tests navigation from SignUp to Login and back
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch app
+- launchApp:
+    clearState: true
+
+# Verify Splash screen
+- assertVisible: "PageKeeper"
+
+# Navigate to SignUp
+- tapOn: "Sign Up"
+
+# Verify SignUp screen
+- assertVisible: "Create Account"
+- assertVisible: "Start your reading journey today"
+- assertVisible: "Email"
+- assertVisible: "Password"
+- assertVisible: "Confirm Password"
+- assertVisible: "Continue with Google"
+
+# TC-SU-050: Navigate to Login
+- tapOn: "Login"
+
+# Verify Login screen
+- assertVisible: "Log In"
+- assertVisible: "Welcome back"
+
+# Navigate back to SignUp
+- tapOn: "Sign Up"
+
+# Verify back on SignUp screen
+- assertVisible: "Create Account"

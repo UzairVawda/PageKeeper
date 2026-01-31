@@ -1,0 +1,66 @@
+# TC-SU-001 to TC-SU-006: Email Input Field Validation Tests
+# Tests email validation on SignUp screen
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to SignUp
+- launchApp:
+    clearState: true
+- tapOn: "Sign Up"
+
+# TC-SU-001: Valid Email Format
+- tapOn:
+    id: "email-input"
+- inputText: "test@example.com"
+- hideKeyboard
+- assertVisible:
+    id: "email-valid-icon"
+
+# Clear and test invalid formats
+- tapOn:
+    id: "email-input"
+- clearText
+- inputText: "testexample.com"
+- hideKeyboard
+
+# TC-SU-002: Invalid Email - Missing @ Symbol
+- assertVisible:
+    id: "email-invalid-icon"
+- assertVisible: "Please enter a valid email address"
+
+# TC-SU-003: Invalid Email - Missing Domain
+- tapOn:
+    id: "email-input"
+- clearText
+- inputText: "test@"
+- hideKeyboard
+- assertVisible:
+    id: "email-invalid-icon"
+
+# TC-SU-004: Invalid Email - Missing TLD
+- tapOn:
+    id: "email-input"
+- clearText
+- inputText: "test@example"
+- hideKeyboard
+- assertVisible:
+    id: "email-invalid-icon"
+
+# TC-SU-005: Email with Spaces
+- tapOn:
+    id: "email-input"
+- clearText
+- inputText: "test @example.com"
+- hideKeyboard
+- assertVisible:
+    id: "email-invalid-icon"
+
+# TC-SU-006: Valid email restores green state
+- tapOn:
+    id: "email-input"
+- clearText
+- inputText: "valid@test.com"
+- hideKeyboard
+- assertVisible:
+    id: "email-valid-icon"

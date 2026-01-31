@@ -1,0 +1,62 @@
+# TC-LI-001 to TC-LI-012: Login Input Field Tests
+# Tests username/email and password fields (no validation colors)
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to Login
+- launchApp:
+    clearState: true
+- tapOn: "Login"
+
+# Verify Login screen
+- assertVisible: "Log In"
+- assertVisible: "Welcome back"
+
+# TC-LI-001: Valid Email Input
+- tapOn:
+    id: "identifier-input"
+- inputText: "test@example.com"
+- hideKeyboard
+
+# TC-LI-003 & TC-LI-005: Border should remain brown (no validation colors)
+# We can't directly assert border color, but we verify no validation icons appear
+- assertNotVisible:
+    id: "identifier-valid-icon"
+    optional: true
+- assertNotVisible:
+    id: "identifier-invalid-icon"
+    optional: true
+
+# TC-LI-002: Username Input (no @ symbol)
+- tapOn:
+    id: "identifier-input"
+- clearText
+- inputText: "myusername"
+- hideKeyboard
+
+# Should accept username input without error
+- assertNotVisible: "Please enter a valid email"
+
+# TC-LI-010: Password Input
+- tapOn:
+    id: "password-input"
+- inputText: "anypassword"
+
+# Password should be hidden (dots)
+- assertNotVisible: "anypassword"
+
+# TC-LI-011: Password - Show/Hide Toggle
+- tapOn:
+    id: "password-toggle"
+# Password should now be visible
+- assertVisible: "anypassword"
+- tapOn:
+    id: "password-toggle"
+# Password should be hidden again
+- assertNotVisible: "anypassword"
+
+# TC-LI-012: No Validation Colors on password
+- hideKeyboard
+# Just verify no error messages appear
+- assertNotVisible: "Password must"

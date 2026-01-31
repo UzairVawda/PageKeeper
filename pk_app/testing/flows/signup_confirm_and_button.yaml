@@ -1,0 +1,78 @@
+# TC-SU-020 to TC-SU-034: Confirm Password and Sign Up Button Tests
+# Tests confirm password matching and button states
+
+appId: com.uzairv.pagekeeper
+---
+
+# Launch and navigate to SignUp
+- launchApp:
+    clearState: true
+- tapOn: "Sign Up"
+
+# TC-SU-030: Sign Up Button - Disabled State (all fields empty)
+- assertVisible:
+    id: "signup-button-disabled"
+
+# Fill in email first
+- tapOn:
+    id: "email-input"
+- inputText: "test@example.com"
+- hideKeyboard
+
+# TC-SU-032: Button still disabled with only email
+- assertVisible:
+    id: "signup-button-disabled"
+
+# Fill in password
+- tapOn:
+    id: "password-input"
+- inputText: "Test123!"
+- hideKeyboard
+
+# TC-SU-033: Button still disabled (password valid but no confirm)
+- assertVisible:
+    id: "signup-button-disabled"
+
+# TC-SU-021: Confirm Password - Not Matching
+- tapOn:
+    id: "confirm-password-input"
+- inputText: "DifferentPass1!"
+- hideKeyboard
+- assertVisible: "Passwords do not match"
+
+# Button should still be disabled
+- assertVisible:
+    id: "signup-button-disabled"
+
+# TC-SU-020: Confirm Password - Matching
+- tapOn:
+    id: "confirm-password-input"
+- clearText
+- inputText: "Test123!"
+- hideKeyboard
+
+# TC-SU-031: Sign Up Button - Enabled When All Valid
+- assertVisible:
+    id: "signup-button-enabled"
+
+# TC-SU-023: Confirm Password - Show/Hide Toggle
+- tapOn:
+    id: "confirm-password-input"
+- tapOn:
+    id: "confirm-password-toggle"
+- assertVisible: "Test123!"
+- tapOn:
+    id: "confirm-password-toggle"
+
+# TC-SU-022: Confirm Password - Updates When Password Changes
+# Go back and change password
+- tapOn:
+    id: "password-input"
+- clearText
+- inputText: "NewPass456!"
+- hideKeyboard
+
+# Confirm password should now show error (no longer matches)
+- assertVisible: "Passwords do not match"
+- assertVisible:
+    id: "signup-button-disabled"
