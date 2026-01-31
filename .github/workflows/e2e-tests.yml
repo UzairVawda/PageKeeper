@@ -37,20 +37,14 @@ jobs:
 
       - name: Start iOS Simulator
         run: |
-          # List available simulators
-          xcrun simctl list devices available
           # Boot iPhone 15 simulator
           xcrun simctl boot "iPhone 15" || true
           # Wait for simulator to be ready
           sleep 10
 
-      - name: Install CocoaPods
-        working-directory: pk_app/ios
-        run: pod install
-
       - name: Build iOS app
         working-directory: pk_app
-        run: npx expo run:ios --device "iPhone 15" --no-install
+        run: npx expo run:ios --device "iPhone 15"
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
