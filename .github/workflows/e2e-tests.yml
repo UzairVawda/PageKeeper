@@ -35,10 +35,13 @@ jobs:
           curl -Ls "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
+      - name: List available simulators
+        run: xcrun simctl list devices available
+
       - name: Start iOS Simulator
         run: |
-          # Boot iPhone 15 simulator
-          xcrun simctl boot "iPhone 15" || true
+          # Boot iPhone 16 simulator (default on XCode 16)
+          xcrun simctl boot "iPhone 16" || true
           # Wait for simulator to be ready
           sleep 10
 
@@ -46,13 +49,9 @@ jobs:
         working-directory: pk_app
         run: npx expo prebuild --platform ios --clean
 
-      - name: Install CocoaPods
-        working-directory: pk_app/ios
-        run: pod install --repo-update
-
-      - name: Build iOS app
+      - name: Build and install iOS app
         working-directory: pk_app
-        run: npx expo run:ios --device "iPhone 15" --no-install
+        run: npx expo run:ios --device "iPhone 16"
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
